@@ -6,21 +6,48 @@ require("es5-shim")
 require("babel/register")
 
 var Promise = require('es6-promise').Promise
-// just Node?
-// var fetch = require('node-fetch')
-// Browserify?
-// require('whatwg-fetch') //--> not a typo, don't store as a var
+var $ = require('jquery')
+var backbone = require('backbone')
+import * as templates from "./templates.js"
+import * as api from "./etsy-api.js"
 
-// other stuff that we don't really use in our own code
-// var Pace = require("../bower_components/pace/pace.js")
+// create router constructor
+var GiphyRouter = backbone.Router.extend({
+    routes: {
+        'details/:id': 'details',
+        '*default': 'home'
+    },
+    home: function(){
+        api.getTrending().then((data) => {
+            document.body.innerHTML = templates.home(data)
+        })
+    },
+    details: function(id){
+        api.getDetails(id).then((json) => {
+            var v = json.data
+            document.body.innerHTML = templates.details(v.images.original.url, v.source)
+        })
+    },
+    initialize: function(){
+        backbone.history.start()
+    }
+})
 
-// require your own libraries, too!
-// var Router = require('./app.js')
+var router = new GiphyRouter()
 
-// window.addEventListener('load', app)
 
-// function app() {
-    // start app
-    // new Router()
-// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

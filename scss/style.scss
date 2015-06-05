@@ -48,8 +48,10 @@
     }
 }
 
-@mixin gridify 2, 400 {}
-@mixin gridify 4, 600 {}
+@mixin gridify 2, 400 {} /* creates .grid-2-400 */
+@mixin gridify 4, 800 {} /* creates .grid-4-800 */
+@mixin gridify 6, 1024 {} /* creates .grid-6-1024 */
+
 
 /**
  * PACE (automatic pre-loader thingy)
@@ -88,3 +90,35 @@ img {
 /**
  * YOUR CODE HERE
  */
+
+.container {
+    max-width: 1024px;
+    padding: 2rem;
+    margin: auto;
+}
+
+a { color: inherit;
+    font-size: .5rem;
+    font-family: verdana;
+}
+
+.toolbar {
+    overflow: auto;
+    background-color: #efefef;
+    .logo {
+        display: inline-block;
+        padding: .5rem 1.5rem;
+    }
+    form {
+        float:right;
+    }
+}
+
+
+
+
+
+
+
+
+
