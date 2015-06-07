@@ -5,12 +5,12 @@ var toolbar = function() {
             </div>`
 }
 
-var grid_item = (url, title) => `<a href="#">
-    <img src="${url}">
-    <div>
-        <span>${title}</span>
-    </div>
-</a>`
+// var grid_item = (url, title) => `<a href="#">
+//     <img src="${url}">
+//     <div>
+//         <span>${title}cccfff</span>
+//     </div>
+//     </a>`
 
 export var details = (url, title) => `<div class="container details-screen">
     ${toolbar()}
@@ -23,13 +23,14 @@ export var details = (url, title) => `<div class="container details-screen">
     </div>
 </div>`
 
-export var home = (trending) => `<div class="container home-screen">
+export var home = (trendingListings) => `<div class="container home-screen">
     ${toolbar()}
     <div class="grid grid-2-400 grid-4-800 grid-6-1024">
-        ${ trending.results.map((v,i) => {
-            return `<a href="#details/${v.id}">
-                <img src="${v.url}"
-                <div><span>${v.title} </span></div>
+        ${ trendingListings.results.map((etsyListing,index) => {
+            console.log(etsyListing)
+            return `<a href="#listing/${etsyListing.listing_id}">
+                <img src="${etsyListing.Images[0].url_75x75}", 
+                <div><span>${etsyListing.title} </span></div>
             </a>`
         }).join('') }
     </div>
