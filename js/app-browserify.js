@@ -11,11 +11,14 @@ var backbone = require('backbone')
 import * as templates from "./templates.js"
 import * as api from "./etsy-api.js"
 
+
+
 // create router constructor
 var GiphyRouter = backbone.Router.extend({
     routes: {
         'listing/:id': 'detailsRouteHandler',
-        '*default': 'home'
+        '*default': 'home',
+        'search/:keywords': 'search'
     },
     home: function() {
         api.getTrending().then((dataJsonObj) => {
@@ -38,9 +41,21 @@ var GiphyRouter = backbone.Router.extend({
         })
     },
 
+    search: function(keywords) {
+        api.getItem(keyword).then((keywords_json) => {
+            document.body.innerHTML=templates.home(keywords_json)
+        })
+    },
+
     initialize: function() {
         backbone.history.start()
     }
 })
 
 var router = new GiphyRouter()
+
+$('body').on('submit', "form.search", (event) => {
+    event.preventDefault();
+    window.location.hash = `search/${document.querySelector("input[type=search]").value}`
+})
+

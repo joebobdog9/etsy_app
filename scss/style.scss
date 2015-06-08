@@ -1,7 +1,5 @@
-
 @import "../bower_components/normalize-css/normalize.css";
 @import "../bower_components/typeplate-starter-kit/css/typeplate.css";
-
 /**
  * BOX-SIZING
  */
@@ -11,19 +9,24 @@
 *:after {
     box-sizing: border-box;
 }
-
 /**
  * GRIDS
  */
 
 .grid {
+    padding: 2px;
     width: 100%;
     display: block;
     font-size: 0;
     text-align: justify;
     position: relative;
+    font-family: verdana;
+    margin-top: .75rem;
+
+
+
     & > * {
-        font-size: medium;
+        font-size: .5rem;
         text-align: left;
         display: inline-block;
         width: 100%;
@@ -33,11 +36,13 @@
         display: inline-block;
         width: 100%;
         content: "";
-        font-size: medium;
+        font-size: .5rem;
     }
 }
 
-@define-mixin gridify $col, $width, $gutter: 2 {
+@define-mixin gridify $col,
+$width,
+$gutter: 2 {
     @media only screen and (min-width: $(width)px) {
         .grid-$(col)-$(width) {
             & > * {
@@ -48,11 +53,17 @@
     }
 }
 
-@mixin gridify 2, 400 {} /* creates .grid-2-400 */
-@mixin gridify 4, 800 {} /* creates .grid-4-800 */
-@mixin gridify 6, 1024 {} /* creates .grid-6-1024 */
+@mixin gridify 2,
+400 {}
+/* creates .grid-2-400 */
 
+@mixin gridify 4,
+800 {}
+/* creates .grid-4-800 */
 
+@mixin gridify 6,
+1024 {}
+/* creates .grid-6-1024 */
 /**
  * PACE (automatic pre-loader thingy)
  */
@@ -97,29 +108,67 @@ img {
     margin: auto;
 }
 
-a { color: inherit;
-    font-size: .5rem;
-    font-family: verdana;
+body {
+    background-color: #eeeeee;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: solid 1px #F34D00;
+    margin-bottom: .5rem;
+    margin-left: .2rem;
+    margin-right: .2rem;
+
+}
+
+a > div {
+    height: 45px;
+    overflow:hidden;
 }
 
 .toolbar {
+    border-bottom: 2px solid #cccccc;
     overflow: auto;
-    background-color: #efefef;
+    background-color: #F34D00;
+    color: #ffffff;
     .logo {
         display: inline-block;
         padding: .5rem 1.5rem;
     }
-    
     form {
-        float:right;
+        float: right;
     }
 }
 
+img {
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+}
+
+.logo {
+    font-family: verdana;
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+input{
+    background-color: #F34D00;
+    color:#ffffff;
+    vertical-align: middle;
+    margin-right: .5rem;
+    vertical-align: middle;
+    font-family: verdana;
+    font-size: .5rem;
+    inherit: none;
+    border: 1px solid white;
+}
 
 
-
-
-
-
-
-
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
