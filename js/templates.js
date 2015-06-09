@@ -19,21 +19,24 @@ export var details = (url, title) => `<div class="container details-screen">
         <img src="${url}">
 
         <div>
-            <span style="font-size:1rem">${title}</span>
+            <div class="detail-title">${title}</div>
         </div>
     </div>
 </div>`
 
 export var home = (trendingListings) => `<div class="container home-screen">
     ${toolbar()}
-    <div class="grid grid-2-400 grid-4-800 grid-6-1024">
+    <div class="grid grid-2-400 grid-4-800 grid-6-1024 listing_link">
+
         ${ trendingListings.results.map((etsyListing,index) => {
             console.log(etsyListing)
-            return `<a href="#listing/${etsyListing.listing_id}">
+            return `<a href="#listing/${etsyListing.listing_id}" class="single-listing">
                 <img src="${etsyListing.Images[0].url_170x135}", 
                 // <br>
-                <div><span style="padding-bottom:2rem">${etsyListing.title} </span></div>
+                <p class="text-block">${etsyListing.title} </p>
+
             </a>`
         }).join('') }
     </div>
+
 </div>`
