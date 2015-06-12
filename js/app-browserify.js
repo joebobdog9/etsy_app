@@ -16,9 +16,10 @@ import * as api from "./etsy-api.js"
 // create router constructor
 var GiphyRouter = backbone.Router.extend({
     routes: {
-        'listing/:id': 'detailsRouteHandler',
+        'listing/:id/:shop_id': 'detailsRouteHandler',
         '*default': 'home',
         'search/:keywords': 'search'
+
     },
     home: function() {
         api.getTrending().then((dataJsonObj) => {
@@ -27,23 +28,28 @@ var GiphyRouter = backbone.Router.extend({
             document.body.innerHTML = templates.home(dataJsonObj)
         })
     },
-    detailsRouteHandler: function(id) {
-        api.getDetails(id).then((json) => {
-            var json = json
-            console.log(json);
-            console.log(json.results[0].title)
-            console.log(templates.details)
+    detailsRouteHandler: function(id, shop_id) {
+
+        $.when(
+            api.getDetails(id),
+            api.getShop(shop_id)
+        ).then((etsyListing_json, etsyShop_json) => {
+
+            console.log(etsyListing_json)
+            console.log(etsyShop_json)
 
 
-            var listingMainImage = json.results[0].Images[0].url_570xN;
-            var listing_title = json.results[0].title;
-            document.body.innerHTML = templates.details(listingMainImage, listing_title)
-        })
+            var listingObject = etsyListing_json[0].results[0]
+
+            var shopListingsArray = etsyShop_json.results
+            document.body.innerHTML = templates.details(listingObject, shopListingsArray) //querySelector ('.container')?
+
+        }.bind(this))
     },
 
     search: function(keywords) {
         api.getItem(keyword).then((keywords_json) => {
-            document.body.innerHTML=templates.home(keywords_json)
+            document.body.innerHTML = templates.home(keywords_json)
         })
     },
 
@@ -58,4 +64,3 @@ $('body').on('submit', "form.search", (event) => {
     event.preventDefault();
     window.location.hash = `search/${document.querySelector("input[type=search]").value}`
 })
-
